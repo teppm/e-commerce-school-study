@@ -6013,3 +6013,8 @@ env/Scripts/django-admin.exe
 env/Scripts/django-admin.py
 env/Scripts/sqlformat.exe
 env/Scripts/__pycache__/django-admin.cpython-38.pyc
+boutique_ado/__pycache__/__init__.cpython-38.pyc
+boutique_ado/__pycache__/settings.cpython-38.pyc
+db.sqlite3
+boutique_ado/__pycache__/urls.cpython-38.pyc
+boutique_ado/__pycache__/wsgi.cpython-38.pyc
