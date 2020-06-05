@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+     'django.contrib.sites', #used by social media account app to create correct callback urls when logging in via some
+    'allauth',
+    'allauth.account', #enable basic user function - login/out ,user registration and password reset
+    'allauth.socialaccount', #logging in via social media providers e.g facebook and google
 ]
 
 MIDDLEWARE = [
@@ -59,13 +63,35 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request',
+                'django.template.context_processors.request', #required by allauth,
+                # do not remove #allows django and allauth to access our http request object in our templates
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+SITE_ID = 1 #required together with 'django.contrib.sites'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' #Since by default allauth will send confirmation emails to any new accounts.
+#We need to temporarily log those emails to the console so we can get the confirmation links.
+
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email' 
+ACCOUNT_EMAIL_REQUIRED = True #email required to register
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory' #mandatory to verify your email address
+ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True #need to input email twice to make sure no typos 
+ACCOUNT_USERNAME_MIN_LENGTH = 4 #minimum username length
+LOGIN_URL = '/accounts/login' #specified login url
+LOGIN_REDIRECT_URL = '/' #redirect url after logging in 
 
 WSGI_APPLICATION = 'boutique_ado.wsgi.application'
 
