@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account', #enable basic user function - login/out ,user registration and password reset
     'allauth.socialaccount', #logging in via social media providers e.g facebook and google
+    'home' #added home app to installed apps
 ]
 
 MIDDLEWARE = [
@@ -58,7 +59,10 @@ ROOT_URLCONF = 'boutique_ado.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'), #add route templates directory 
+            os.path.join(BASE_DIR, 'templates', 'allauth') #add customer allauth directory
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

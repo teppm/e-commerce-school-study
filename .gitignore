@@ -7828,3 +7828,9 @@ env/Lib/site-packages/allauth/templates/socialaccount/messages/account_disconnec
 env/Lib/site-packages/allauth/templates/socialaccount/snippets/login_extra.html
 env/Lib/site-packages/allauth/templates/socialaccount/snippets/provider_list.html
 env/Lib/site-packages/allauth/templates/tests/test_403_csrf.html
+home/__pycache__/__init__.cpython-38.pyc
+home/__pycache__/admin.cpython-38.pyc
+home/__pycache__/models.cpython-38.pyc
+home/__pycache__/urls.cpython-38.pyc
+home/__pycache__/views.cpython-38.pyc
+home/migrations/__pycache__/__init__.cpython-38.pyc
