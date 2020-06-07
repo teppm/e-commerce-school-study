@@ -8038,5 +8038,7 @@ products/migrations/0001_initial.py
 products/migrations/__init__.py
 products/__pycache__/models.cpython-38.pyc
 products/__pycache__/admin.cpython-38.pyc
-
 products/__pycache__/__init__.cpython-38.pyc
+products/__pycache__/urls.cpython-38.pyc
+products/__pycache__/views.cpython-38.pyc
+
