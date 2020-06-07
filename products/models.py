@@ -3,6 +3,10 @@ from django.db import models
 # Create your models here.
 
 class Category(models.Model): #model for categories
+
+    class Meta: 
+        verbose_name_plural = 'Categories' #update the plural spelling of Category model in Admin view
+
     name = models.CharField(max_length=254) #name used for programmatic purposes
     friendly_name = models.CharField(max_length=254, null=True, blank=True) # 'friendly' name to use to display for example to customers
 
