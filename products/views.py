@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse 
 from django.contrib import messages
-from .models import Product
+from .models import Product, Category
 from django.db.models import Q #special object used to generate a search query ##find info in the queries portion of django docs
 
 # Create your views here.
@@ -10,8 +10,15 @@ def all_products(request):
 
     products = Product.objects.all() #return all products from database
     query = None #start with empty query so we dont get error on products page without a search term
+    categories = None #starting with empty for same reason as above
 
     if request.GET: #if we receive a request.get from form
+        if 'category' in request.GET: #checking if category exists in request.get
+            categories = request.GET['category'].split(',') # create variable with request.get content and split list from comma
+            products = products.filter(category__name__in=categories) #And then use that list to filter the current query set of all products down to only products whose category name is in the list.
+            categories = Category.objects.filter(name__in=categories) # we  convert list of strings into a list of actual category objects, so that we can access all their fields in the template.
+
+
         if 'q' in request.GET:  #if in the request.get we have q(name for the search field in form)
             query = request.GET['q'] #we generate variable with that content
             if not query: #if no query variable created
@@ -25,7 +32,8 @@ def all_products(request):
  
     context = { #make products available in template
         'products': products,
-        'search_term': query #search term is either the empty query or the request.get generated one
+        'search_term': query, #search term is either the empty query or the request.get generated one
+        'current_categories': categories
     }
 
     return render(request, 'products/products.html', context) #context needed to add to database later on
