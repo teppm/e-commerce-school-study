@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
 from .models import Product, Category
 from django.db.models import Q #special object used to generate a search query ##find info in the queries portion of django docs
+from django.db.models.functions import Lower
 
 # Create your views here.
 
