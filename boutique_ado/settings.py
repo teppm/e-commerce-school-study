@@ -73,6 +73,7 @@ TEMPLATES = [
                 # do not remove #allows django and allauth to access our http request object in our templates
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'bag.contexts.bag_contents' #makes def bag_content from contexts-py avaialable across apps
             ],
         },
     },
@@ -154,3 +155,7 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+FREE_DELIVERY_THRESHOLD = 50 # which will be used to calculate delivery costs 
+STANDARD_DELIVERY_PERCENTAGE = 10 # which will be used to calculate delivery costs 
