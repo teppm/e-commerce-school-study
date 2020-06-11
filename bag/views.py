@@ -19,5 +19,5 @@ def add_to_bag(request, item_id):
         bag[item_id] = quantity #create a key of the items id and set it equal to the quantity.
 
     request.session['bag'] = bag #Now I just need to put the bag variable into the session. Which itself is just a python dictionary."
-    print(request.session['bag'])
+    print(request.session['bag']) #print sessions to console to verify that add bag function works, should be removed for production
     return redirect(redirect_url)
