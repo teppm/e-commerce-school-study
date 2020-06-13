@@ -32,7 +32,7 @@ And its purpose is to make this dictionary available to all templates across the
                 product_count += quantity
                 bag_items.append({
                     'item_id': item_id,
-                    'quantity': item_data,
+                    'quantity': quantity,
                     'product': product,
                     'size': size
                 })
