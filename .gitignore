@@ -8051,3 +8051,5 @@ bag/__pycache__/contexts.cpython-38.pyc
 .vscode/settings.json
 products/migrations/0002_auto_20200612_1708.py
 products/migrations/__pycache__/0002_auto_20200612_1708.cpython-38.pyc
+bag/templatetags/__pycache__/__init__.cpython-38.pyc
+bag/templatetags/__pycache__/bag_tools.cpython-38.pyc
