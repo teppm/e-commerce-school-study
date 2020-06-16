@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount', #logging in via social media providers e.g facebook and google
     'home', #added home app to installed apps
     'products',#added products app to installed apps
-    'bag' #added bag(shopping bag) app to installed apps
+    'bag', #added bag(shopping bag) app to installed apps
+    'checkout' #added checkout app to installed apps
 ]
 
 MIDDLEWARE = [
