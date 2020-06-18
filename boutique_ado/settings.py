@@ -77,6 +77,7 @@ TEMPLATES = [
                 # do not remove #allows django and allauth to access our http request object in our templates
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
                 'bag.contexts.bag_contents' #makes def bag_content from contexts-py avaialable across apps
             ],
             'builtins':[ #use builtins to add a list of builtins we want available in all our templates by default
