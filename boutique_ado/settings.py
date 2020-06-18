@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'home', #added home app to installed apps
     'products',#added products app to installed apps
     'bag', #added bag(shopping bag) app to installed apps
-    'checkout' #added checkout app to installed apps
+    'checkout', #added checkout app to installed apps
+    'crispy_forms' #installed django-crispy-forms to style forms with bootstrap
 ]
 
 MIDDLEWARE = [
@@ -58,6 +59,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'boutique_ado.urls'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4' #tell which template pack crispy forms will use
 
 TEMPLATES = [
     {
@@ -76,6 +79,10 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'bag.contexts.bag_contents' #makes def bag_content from contexts-py avaialable across apps
             ],
+            'builtins':[ #use builtins to add a list of builtins we want available in all our templates by default
+                'crispy_forms.templatetags.crispy_forms_tags',
+                'crispy_forms.templatetags.crispy_forms_field'
+            ]
         },
     },
 ]
