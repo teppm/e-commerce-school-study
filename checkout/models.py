@@ -22,20 +22,22 @@ class Order(models.Model):
     county = models.CharField(max_length=80, null=True, blank=True)
     date = models.DateTimeField(auto_now_add=True) #add date and timestamp to purchases
     delivery_cost = models.DecimalField(max_digits=6, decimal_places=2, null=False, default=0)
-    order_total = models.DecimalField(max_digits=6, decimal_places=2, null=False, default=0)
-    grand_total = models.DecimalField(max_digits=6, decimal_places=2, null=False, default=0)
+    order_total = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0)
+    grand_total = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0)
+
+
 
     def _generate_order_number(self): #underscore before generate is a convention that indicates that this method is only used in this class
         """
         generates a random unique order number using UUID  (uuid4 is used for random 32 hex string)
         """
-        return uuid.uuid4.hex.upper()
+        return uuid.uuid4().hex.upper()
 
     def update_total(self):
         """
         update grand total each time line item is added, accounting for delivery costs
         """
-        self.order_total = self.lineitems.aggregate(sum('lineitem_total'))['lineitem_total__sum']
+        self.order_total = self.lineitems.aggregate(Sum('lineitem_total'))['lineitem_total__sum'] or 0
         if self.order_total < settings.FREE_DELIVERY_THRESHOLD:
             self.delivery_cost = self.order_total * settings.STANDARD_DELIVERY_PERCENTAGE/100
         else: 
@@ -80,7 +82,8 @@ class OrderLineItem(models.Model):
 
     def save(self, *args, **kwargs):
         """
-        override the original save method to set the lineitme total and update the order total
+        Override the original save method to set the lineitem total
+        and update the order total.
         """
         self.lineitem_total = self.product.price * self.quantity
         super().save(*args, **kwargs)
@@ -88,3 +91,6 @@ class OrderLineItem(models.Model):
 
     def __str__(self):
         return f'SKU {self.product.sku} on order {self.order.order_number}'
+
+    
+    

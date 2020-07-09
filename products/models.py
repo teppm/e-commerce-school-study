@@ -22,7 +22,7 @@ class Category(models.Model): #model for categories
 
 
 class Product(models.Model):
-    category = models.ForeignKey("Category", null=True, blank=True, on_delete=models.SET_NULL) #foreign key to a category model
+    category = models.ForeignKey('Category', null=True, blank=True, on_delete=models.SET_NULL) #foreign key to a category model
     sku = models.CharField(max_length=254, blank=True, null=True)
     name = models.CharField(max_length=254)
     description = models.TextField()
@@ -31,6 +31,7 @@ class Product(models.Model):
     rating = models.DecimalField(max_digits=6, decimal_places=2) 
     image_url = models.URLField(max_length=1024, null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
+
 
     def __str__(self):
         return self.name 
