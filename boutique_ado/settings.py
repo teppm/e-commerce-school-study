@@ -29,7 +29,9 @@ SECRET_KEY = 'ofsni2=l@sz$gsv35(2(b2*sr#x&=3r^9eenx-b07)1=hw15_7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '12016c55e8f4.ngrok.io'
+]
 
 
 # Application definition
@@ -179,4 +181,5 @@ STANDARD_DELIVERY_PERCENTAGE = 10 # which will be used to calculate delivery cos
 STRIPE_CURRENCY = 'usd'
 STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '') #KEEP SAFE IN ENV.PY FILE
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '') #KEEP SAFE IN ENV.PY FILE
+STRIPE_WH_SECRET = os.getenv('STRIPE_WH_SECRET', '')#KEEP SAFE IN ENV.PY FILE
 

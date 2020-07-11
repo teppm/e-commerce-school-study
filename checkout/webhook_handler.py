@@ -17,5 +17,28 @@ class StripeWH_Handler:
         and simply return an HTTP response indicating it was received.
         """
         return HttpResponse(
+            content=f'Unhandled webhook received: {event["type"]}',
+            status=200)
+        """
+        The idea here is that for each type of webhook.
+        We want a different method to handle it which makes them easy to manage.
+        And makes it easy to add more as stripe adds new ones.
+        """
+
+    
+    def handle_payment_intent_succeeded(self, event):
+        """
+        handle payment.intent.succeeded webhooks from stripe
+        """
+        return HttpResponse(
+            content=f'Webhook received: {event["type"]}',
+            status=200)
+
+    
+    def handle_payment_intent_payment_failed(self, event):
+        """
+        handle payment.intent.payment_failed webhooks from stripe
+        """
+        return HttpResponse(
             content=f'Webhook received: {event["type"]}',
             status=200)
