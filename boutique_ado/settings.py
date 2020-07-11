@@ -30,7 +30,8 @@ SECRET_KEY = 'ofsni2=l@sz$gsv35(2(b2*sr#x&=3r^9eenx-b07)1=hw15_7'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '12016c55e8f4.ngrok.io'
+    '4e93500489df.ngrok.io',
+    '127.0.0.1'
 ]
 
 

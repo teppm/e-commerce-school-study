@@ -50,8 +50,7 @@ card.mount('#card-element');
 card.addEventListener('change', function(event) {
     var errorDiv = document.getElementById('card-errors');
     if (event.error) {
-        var html =
-            `
+        var html = `
             <span class="icon" role="alert">
                 <i class="fas fa-times"></i>
             </span>
@@ -64,6 +63,7 @@ card.addEventListener('change', function(event) {
     }
 });
 
+
 // handle form submit 
 
 var form = document.getElementById('payment-form');
@@ -74,30 +74,90 @@ form.addEventListener('submit', function(ev) {
     $('#submit-button').attr('disabled', true);
     $('#payment-form').fadeToggle(100);
     $('#loading-overlay').fadeToggle(100);
-    stripe.confirmCardPayment(clientSecret, {
-        payment_method: {
-            card: card,
-        }
-    }).then(function(result) {
-        if (result.error) {
-            // Show error to your customer (e.g., insufficient funds)
-            var errorDiv = document.getElementById('card-errors');
-            var html =
-                `
-                <span class="icon" role="alert">
-                    <i class="fas fa-times"></i>
-                </span>
-                <span>${result.error.message}</span>`;
-            $(errorDiv).html(html);
-            $('#payment-form').fadeToggle(100);
-            $('#loading-overlay').fadeToggle(100);
-            card.update({ 'disabled': false }); //if there's an error. We'll also want to re-enable the card element and the submit button to allow the user to fix it.
-            $('#submit-button').attr('disabled', false)
-        } else {
-            // The payment has been processed!
-            if (result.paymentIntent.status === 'succeeded') {
-                form.submit(); // if succesful submit form
+
+    //get the boolean value of the saved info box by just looking at its checked attribute
+    var saveInfo = Boolean($('#id-save-info').attr('checked'));
+    //We'll also need the CSRF token which we can get from the input that Django generates on our form.
+    var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
+    //Then let's create a small object to pass this information to the new view.
+    //And also pass the client secret for the payment intent.
+    var postData = {
+        'csrfmiddlewaretoken': csrfToken,
+        'client_secret': clientSecret,
+        'save_info': saveInfo,
+    }
+    var url = '/checkout/cache_checkout_data/';
+    // post this data to the view.
+    //To do this we'll use our trusty post method built into jQuery
+    $.post(url, postData).done(function() {
+        stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: card,
+                billing_details: {
+                    name: $.trim(form.full_name.value),
+                    phone: $.trim(form.phone_number.value),
+                    email: $.trim(form.email.value),
+                    address: {
+                        line1: $.trim(form.street_address1.value),
+                        line2: $.trim(form.street_address2.value),
+                        city: $.trim(form.town_or_city.value),
+                        country: $.trim(form.country.value),
+                        state: $.trim(form.county.value),
+                    }
+                }
+            },
+            shipping: {
+                name: $.trim(form.full_name.value),
+                phone: $.trim(form.phone_number.value),
+                address: {
+                    line1: $.trim(form.street_address1.value),
+                    line2: $.trim(form.street_address2.value),
+                    city: $.trim(form.town_or_city.value),
+                    country: $.trim(form.country.value),
+                    postal_code: $.trim(form.postcode.value),
+                    state: $.trim(form.county.value),
+                }
+            },
+        }).then(function(result) {
+            if (result.error) {
+                // Show error to your customer (e.g., insufficient funds)
+                var errorDiv = document.getElementById('card-errors');
+                var html =
+                    `
+                    <span class="icon" role="alert">
+                        <i class="fas fa-times"></i>
+                    </span>
+                    <span>${result.error.message}</span>`;
+                $(errorDiv).html(html);
+                $('#payment-form').fadeToggle(100);
+                $('#loading-overlay').fadeToggle(100);
+                card.update({ 'disabled': false }); //if there's an error. We'll also want to re-enable the card element and the submit button to allow the user to fix it.
+                $('#submit-button').attr('disabled', false)
+            } else {
+                // The payment has been processed!
+                if (result.paymentIntent.status === 'succeeded') {
+                    form.submit(); // if succesful submit form
+                }
             }
-        }
-    });
+        }); //attach a failure function, which will be triggered
+        //if our view sends a 400 bad request response. And in that case, we'll just
+        // reload the page to show the user the error message from the view.
+    }).fail(function() {
+        location.reload()
+    })
 });
+
+
+
+// steps: 
+//When the user clicks the submit button the event listener prevents the form from submitting
+//and instead disables the card element and triggers the loading overlay.
+//Then we create a few variables to capture the form data we can't put in
+//the payment intent here, and instead post it to the cache_checkout_data view
+//The view updates the payment intent and returns a 200 response, at which point we
+//call the confirm card payment method from stripe and if everything is ok
+//submit the form.
+//If there's an error in the form then the loading overlay will
+//be hidden the card element re-enabled and the error displayed for the user.
+//If anything goes wrong posting the data to our view. We'll reload the page and
+//display the error without ever charging the user.

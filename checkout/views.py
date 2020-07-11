@@ -5,9 +5,43 @@ from products.models import Product
 from .models import Order, OrderLineItem
 from bag.contexts import bag_contents
 from django.conf import settings
+from django.views.decorators.http import require_POST
+from django.http import HttpResponse
 import stripe
+import json
+
 
 # Create your views here.
+
+@require_POST
+def cache_checkout_data(request):
+    try:
+        """
+        make a post request to this view and give it the
+        client secret from the payment intent. If we split that at the word secret the
+        first part of it will be the payment intent Id, so I'll store that in a variable called pid.
+        """
+        pid = request.POST.get('client_secret').split('_secret')[0]
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        """
+        set up stripe with the secret key so we can modify the payment intent.
+        To do it all we have to do is call stripe.PaymentIntent.modify
+        give it the pid, and tell it what we want to modify in our case we'll add some metadata.
+        Let's add the user who's placing the order.
+        Will add whether or not they wanted to save their information.
+        """
+        stripe.PaymentIntent.modify(pid, metadata={
+            'bag': json.dumps(request.session.get('bag', {})),
+            'save_info': request.POST.get('save_info'),
+            'username': request.user,
+
+        })
+        return HttpResponse(status=200)
+    except Exception as e:
+        messages.error(request, 'Sorry, your payment cannot be processed!')
+        return HttpResponse(content=e, status=400)
+
+
 
 def checkout(request):
     stripe_public_key = settings.STRIPE_PUBLIC_KEY 
