@@ -5,7 +5,7 @@ from django.db.models import Sum
 from django.conf import settings
 from django_countries.fields import CountryField
 
-
+from profiles.models import UserProfile
 from products.models import Product
 
 
@@ -13,6 +13,8 @@ from products.models import Product
 
 class Order(models.Model):
     order_number = models.CharField(max_length=32, null=False, editable=False) #basic character field, max lent 32char, created automatically, cannot be edited
+    user_profile = models.ForeignKey(UserProfile, on_delete=models.SET_NULL, null=True,
+                                     blank=True, related_name='orders') # use models.SET_NULL if the profile is deleted since that will allow us to keep an order history in the admin even if the user is deleted.
     full_name = models.CharField(max_length=50, null=False, blank=False) # name chat field, 50 char, required
     email = models.EmailField(max_length=254, null=False, blank=False)
     phone_number = models.CharField(max_length=20, null=False, blank=False)
