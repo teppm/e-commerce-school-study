@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'bag', #added bag(shopping bag) app to installed apps
     'checkout', #added checkout app to installed apps
     'crispy_forms', #installed django-crispy-forms to style forms with bootstrap
-    'django_countries'
+    'django_countries', #django_countries to use for countrylist 
+    'profiles', #profiles app to create a user profile possibility
 ]
 
 MIDDLEWARE = [
