@@ -2,18 +2,12 @@ from django.http import HttpResponse
 from .models import Order, OrderLineItem
 from products.models import Product
 from profiles.models import UserProfile
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.conf import settings
->>>>>>> Stashed changes
-=======
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.conf import settings
->>>>>>> Stashed changes
 
 import json
 import time
