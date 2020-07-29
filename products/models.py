@@ -6,10 +6,12 @@ class Category(models.Model): #model for categories
 
     class Meta: 
         verbose_name_plural = 'Categories' #update the plural spelling of Category model in Admin view
-
+    
     name = models.CharField(max_length=254) #name used for programmatic purposes
     friendly_name = models.CharField(max_length=254, null=True, blank=True) # 'friendly' name to use to display for example to customers
-
+    
+    
+    
     def __str__(self):
         return self.name 
         '''A Python “magic method” that returns a string representation of any object.

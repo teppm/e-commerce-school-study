@@ -8032,10 +8032,6 @@ env/Lib/site-packages/Pillow-7.1.2.dist-info/RECORD
 env/Lib/site-packages/Pillow-7.1.2.dist-info/top_level.txt
 env/Lib/site-packages/Pillow-7.1.2.dist-info/WHEEL
 env/Lib/site-packages/Pillow-7.1.2.dist-info/zip-safe
-products/migrations/__pycache__/__init__.cpython-38.pyc
-products/migrations/__pycache__/0001_initial.cpython-38.pyc
-products/migrations/0001_initial.py
-products/migrations/__init__.py
 products/__pycache__/models.cpython-38.pyc
 products/__pycache__/admin.cpython-38.pyc
 products/__pycache__/__init__.cpython-38.pyc
@@ -8920,3 +8916,25 @@ profiles/migrations/0001_initial.py
 profiles/migrations/__pycache__/0001_initial.cpython-38.pyc
 profiles/__pycache__/models.cpython-38.pyc
 checkout/__pycache__/models.cpython-38.pyc
+bag/migrations/__pycache__/__init__.cpython-38.pyc
+checkout/__pycache__/__init__.cpython-38.pyc
+checkout/__pycache__/admin.cpython-38.pyc
+checkout/__pycache__/models.cpython-38.pyc
+checkout/__pycache__/webhooks.cpython-38.pyc
+checkout/migrations/__pycache__/__init__.cpython-38.pyc
+checkout/migrations/__pycache__/0001_initial.cpython-38.pyc
+checkout/migrations/__pycache__/0002_auto_20200617_1711.cpython-38.pyc
+checkout/migrations/__pycache__/0003_auto_20200711_1312.cpython-38.pyc
+profiles/__pycache__/__init__.cpython-38.pyc
+profiles/__pycache__/admin.cpython-38.pyc
+profiles/__pycache__/forms.cpython-38.pyc
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+profiles/__pycache__/models.cpython-38.pyc
+profiles/migrations/__pycache__/__init__.cpython-38.pyc
+=======
+profiles/__pycache__/models.cpython-38.pycP
+>>>>>>> Stashed changes
+=======
+profiles/__pycache__/models.cpython-38.pycP
+>>>>>>> Stashed changes
