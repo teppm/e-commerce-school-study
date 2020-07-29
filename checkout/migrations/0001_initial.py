@@ -8,9 +8,7 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-        ('products', '0002_auto_20200612_1708'),
-    ]
+
 
     operations = [
         migrations.CreateModel(
