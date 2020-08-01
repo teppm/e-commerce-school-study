@@ -13,11 +13,14 @@ class Category(models.Model): #model for categories
     
     
     def __str__(self):
+        '''
+        A Python “magic method” that returns a string representation of any object.
+        This is what Python and Django will use whenever a model instance needs to be coerced and displayed as a plain string.
+        Most notably, this happens when you display an object in an interactive console or in the admin.
+        You’ll always want to define this method; the default isn’t very helpful at all.
+        '''
         return self.name 
-        '''A Python “magic method” that returns a string representation of any object.
-         This is what Python and Django will use whenever a model instance needs to be coerced and displayed as a plain string.
-          Most notably, this happens when you display an object in an interactive console or in the admin.
-          You’ll always want to define this method; the default isn’t very helpful at all.'''
+       
 
     def get_friendly_name(self):
         return self.friendly_name

@@ -123,13 +123,13 @@
     {% for message in messages %}
         {% with message.level as level %}<!--#We can check the level of the message.-->
             {% if message.level == 40 %}  <!--#a message of level 40 is an error..-->
-                {% include 'includes\toasts\toast_error.html' %} 
+                {% include 'includes/toasts/toast_error.html' %} 
             {% elif message.level == 30 %} <!--Level 30 is a warning.-->
-                {% include 'includes\toasts\toast_warning.html' %} 
+                {% include 'includes/toasts/toast_warning.html' %} 
             {% elif message.level == 25 %} <!--Level 25 is success warning.-->
-                {% include 'includes\toasts\toast_success.html' %} 
+                {% include 'includes/toasts/toast_success.html' %} 
             {% else %}
-                {% include 'includes\toasts\toast_info.html' %} 
+                {% include 'includes/toasts/toast_info.html' %} 
             {% endif %}
         {% endwith %}
     {% endfor%}
