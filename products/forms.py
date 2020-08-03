@@ -2,8 +2,11 @@ from django import forms
 from .models import Product, Category
 
 class ProductForm(forms.ModelForm):
-    model = 'Product'
-    fields = '__all__' #special dunder or double underscore string called all which will include all the fields.
+
+    
+    class Meta:
+        model = Product
+        fields = '__all__' #special dunder or double underscore string called all which will include all the fields.
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

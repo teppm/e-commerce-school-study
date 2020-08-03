@@ -3,6 +3,7 @@ from django.contrib import messages
 from .models import Product, Category
 from django.db.models import Q #special object used to generate a search query ##find info in the queries portion of django docs
 from django.db.models.functions import Lower
+from .forms import ProductForm
 
 # Create your views here.
 
@@ -68,3 +69,14 @@ def product_detail(request, product_id):
     }
 
     return render(request, 'products/product_details.html', context) #context needed to add to database later on
+
+
+def add_product(request):
+    """ Add product to store """
+    form = ProductForm()
+    template = 'products/add_product.html'
+    context = {
+        'form': form
+    }
+
+    return render(request, template, context)
