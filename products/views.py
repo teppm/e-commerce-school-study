@@ -4,6 +4,7 @@ from .models import Product, Category
 from django.db.models import Q #special object used to generate a search query ##find info in the queries portion of django docs
 from django.db.models.functions import Lower
 from .forms import ProductForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -71,9 +72,12 @@ def product_detail(request, product_id):
     return render(request, 'products/product_details.html', context) #context needed to add to database later on
 
 
+@login_required
 def add_product(request):
     """ Add product to store """
-
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry only store owners can do that')
+        return redirect(reverse('home'))
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
@@ -93,9 +97,12 @@ def add_product(request):
     return render(request, template, context)
 
 
-
+@login_required
 def edit_product(request, product_id):
     """Edit a product"""
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry only store owners can do that')
+        return redirect(reverse('home'))
     product = get_object_or_404(Product, pk=product_id)
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES, instance=product)
@@ -118,8 +125,11 @@ def edit_product(request, product_id):
     return render(request, template, context)
 
 
-
+@login_required
 def delete_product(request, product_id):
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry only store owners can do that')
+        return redirect(reverse('home'))
     product = get_object_or_404(Product, pk=product_id)
     product.delete()
     messages.success(request, f'Item has been deleted!')
