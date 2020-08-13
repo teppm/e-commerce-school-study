@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import dj_database_url
 from os import path
 
 if path.exists("env.py"):
@@ -128,14 +129,16 @@ WSGI_APPLICATION = 'boutique_ado.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+#DATABASES = {
+ #   'default': {
+  #      'ENGINE': 'django.db.backends.sqlite3',
+   #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    #}
+#}
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    'default': dj_database_url.parse('postgres://lgheikctyffqkh:469065619d86c005016e65eec394886a5c9c092c7c9c3bfe1c2a6d8ef74d2d0f@ec2-54-75-229-28.eu-west-1.compute.amazonaws.com:5432/d22jitpanak60u')
 }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
@@ -189,4 +192,5 @@ STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '') #KEEP SAFE IN ENV.PY FILE
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '') #KEEP SAFE IN ENV.PY FILE
 STRIPE_WH_SECRET = os.getenv('STRIPE_WH_SECRET', '')#KEEP SAFE IN ENV.PY FILE
 DEFAULT_FROM_EMAIL = 'boutiqueado@example.com'
-
+##
+####
